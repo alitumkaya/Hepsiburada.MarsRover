@@ -27,7 +27,7 @@ namespace Hepsiburada.MarsRover.Domain.RoverManagement
         public static bool operator >(CoordinateLine exp1, CoordinateLine exp2) => exp1.Value > exp2.Value;
     }
 
-    internal class CoordinateOutOfRangeException : ArgumentOutOfRangeException
+    public class CoordinateOutOfRangeException : ArgumentOutOfRangeException
     {
         public CoordinateOutOfRangeException() : base()
         {
