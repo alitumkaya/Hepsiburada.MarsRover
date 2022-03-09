@@ -29,7 +29,7 @@ namespace Hepsiburada.MarsRover.Domain.RoverManagement
         {
 
         }
-        private RoverHead(int angle) { _angle = Math.Abs((_angle + angle) % 360); }
+        private RoverHead(int angle) { _angle = Math.Abs((360 + _angle + angle) % 360); }
         public RoverHead TurnLeft() => new RoverHead(_angle + 90);
         public RoverHead TurnRight() => new RoverHead(_angle - 90);
         public static RoverHead BuildWith(char roverHead)

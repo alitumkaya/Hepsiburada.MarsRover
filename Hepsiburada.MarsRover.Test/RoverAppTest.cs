@@ -33,23 +33,28 @@ namespace Hepsiburada.MarsRover.Test
             this.roverApp = roverApp;
         }
 
-        [Fact]
-        public async void RoverApp_Command_And_Move_Test()
+        [
+        Theory,
+        InlineData(1, 2, 'N', "LMLMLMLMM", "1,3,N"),
+        InlineData(3, 3, 'E', "MMRMMRMRRM", "5,1,E")
+        ]
+        public async void RoverApp_Command_And_Move_Test(int roverLocationX, int roverLocationY, char roverOrientation, string command, string expected)
         {
-            var plateau = new PlateauDto() { CoordinateX = 30, CoordinateY = 40 };
+            var plateau = new PlateauDto() { CoordinateX = 5, CoordinateY = 5 };
+
             var roverDto = new RoverDto()
             {
-                LocationX = 5,
-                LocationY = 10,
+                LocationX = roverLocationX,
+                LocationY = roverLocationY,
                 Plateau = plateau,
-                RoverHead = 'N'
+                RoverHead = roverOrientation
             };
 
             var rover = await roverApp.AddRover(roverDto);
 
-            rover = await roverApp.ControlRover(rover.Id, "LLMRRML");
+            rover = await roverApp.ControlRover(rover.Id, command);
 
-            Assert.Equal("5,10,W", rover.Coordinate);
+            Assert.Equal(expected, rover.Coordinate);
         }
     }
 }
